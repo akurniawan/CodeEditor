@@ -1,6 +1,6 @@
 CodeEditor
 ======
-CodeEditor is a real-time code editor which can used as tool for editing your codes collaborately with your friends. It is created by me and 2 of my friends (Aditya Kurniawan, Joe Erik Carla, Christine Sotanto as my final project in college)
+CodeEditor is a real-time code editor which can used as tool for editing your codes collaborately with your friends. It is created by me and 2 of my friends (Aditya Kurniawan, Joe Erik Carla, Christine Sotanto) as my final project in college
 
 How to install
 =====
