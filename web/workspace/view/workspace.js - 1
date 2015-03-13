@@ -1,0 +1,271 @@
+var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var currentUser = "";
+var urlConfig =  window.location.pathname.replace('workspace/','');
+workspace.registerCtrl("workspace", function($scope, $http) {
+	$(".templatechat").remove();
+	if(window.sessionStorage.temp != 'Anonymous'){
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId: '312852095583590',
+				xfbml: true,
+				version: 'v2.0'
+			});
+			FB.getLoginStatus(function(response) {
+				if(response.status !== 'connected')
+					window.location.href = urlConfig;
+				else
+					window.sessionStorage.fbtoken = response.authResponse.accessToken;
+			});
+			FB.Event.subscribe('auth.authResponseChange', function(response) {
+				$('#logout').click(function(){
+					if(window.location.href.indexOf('?') == -1){
+						FB.logout(function(){
+							window.sessionStorage.fbtoken = '';
+							window.location.href=urlConfig;
+						});
+					}
+					else if(window.location.href.split("?")[1].split('#') != 'mobile'){
+						var FB_LOGOUT_URL = 'https://www.facebook.com/logout.php';
+						var logoutRedirectURL = baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + window.location.pathname.replace('workspace/','?mobile') ;
+						window.open(FB_LOGOUT_URL + '?access_token=' + window.sessionStorage.fbtoken + '&next=' + logoutRedirectURL, '_blank', 'location=no');
+					}
+				});
+				
+				profilePicture();
+				loadAction();
+				$('#searchFriend').facebookAutocomplete({
+					maxSuggestions: 12,
+					onpick: function(friend) {
+						var divEx = $('.friend').closest('div');
+						var temp = 0;
+						if($(divEx).length !== 0){
+							do{
+								if($('img',divEx).attr('nama') == friend.name)
+									temp = 1;
+								divEx = $(divEx).next();
+							}while($(divEx).length !== 0 && $('.friend',divEx).length !== 0)
+						}
+						if(temp == 0)
+							createFriendElement(friend).appendTo($('#list-tag'));
+			
+						$('#list-tag img').tooltip();
+						$('.close').on('click',function(){ 
+							$(this).closest('div').remove();
+						});	
+					}
+				});
+			});
+		};
+		(function(d) {
+			var js, id = 'facebook-jssdk',
+				ref = d.getElementsByTagName('script')[0];
+			if (d.getElementById(id)) {
+				return;
+			}
+			js = d.createElement('script');
+			js.id = id;
+			js.async = true;
+			js.src = "//connect.facebook.net/en_US/all.js";
+			ref.parentNode.insertBefore(js, ref);
+		}(document));
+	}
+	else{
+		profilePicture();
+		loadAction();
+	}
+	function profilePicture() {
+		var friends = {};
+		var tempMe = {};
+		
+		if(window.sessionStorage.temp == 'Anonymous'){
+			$("#profilePicture").attr("src", 'images/no-avatar_male.jpg');
+			$('#profileName').text('Anonymous');
+			currentUser = 'Anonymous';
+			$('#list-tag button').remove();
+			$('#logout').attr('src','images/logout.png');
+			$('#logout').click(function(){
+				if(window.location.href.indexOf('?') == -1){
+					window.sessionStorage.temp = '';
+					window.location.href=urlConfig;
+				}
+				else if(window.location.href.split("?")[1].split('#') != 'mobile'){
+					window.sessionStorage.temp = '';
+					window.location.href=urlConfig+'?mobile';
+				}
+			});
+		}else{
+			FB.api("/me/picture", {
+				"height": "80",
+				"type": "normal",
+				"width": "80"
+			}, function(response) {
+				
+				$("#profilePicture").attr("src", response.data.url);
+				tempMe.picture = response.data.url;
+				FB.api('/me', function(response) {
+					$('#profileName').text(response.name);
+					currentUser = response.name;
+					$('#list-tag button').remove();
+				});
+			});
+		}
+	}
+
+	function createFriendElement(friend) {
+		$friend = $('<div><img class="friend" style="width:32px;height:32px;" nama="'+friend.name+'" src="'+friend.picture+'"><div class="detailFriend"><span class="nameFriend">'+friend.name+'</span></br><span class="online"><span class="iconOnline"></span></span></div><button type="button" class="close" style="margin-top:-40px"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></div>');
+		return $friend;
+	}
+
+	function loadAction() {
+		console.log("masuk");
+		$("li").click(function(e) {
+			e.preventDefault();
+			$("li").removeClass("selected");
+			$(this).addClass("selected");
+		});
+		$.slidebars();
+		$("#sb-site").on("swiperight", function() {
+			$(".sb-left").addClass('sb-active');
+		});
+		$(window).keydown(function(e) {
+			if (e.which == 116 || e.keyCode == 116) {
+				e.preventDefault();
+				var el = ace.edit("editor-1");
+				compileCode($http, el.getValue());
+			}
+		});
+		$("#compileCode").click(function(e) {
+			e.preventDefault();
+			var el = ace.edit("editor-1");
+			compileCode($http, el.getValue());
+		});
+
+		chat();
+	}
+	
+	/* Slider */
+	var websiteframe;
+	var tabs = $("#tabs").tabs();
+	var tabTitle = $('#tab_title');
+	tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>",
+		tabCounter = 2;
+	
+	function addTab() {
+		var label = tabTitle.val() || "" + tabCounter,
+			id = "tabs-" + tabCounter,
+			li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label)),
+			websiteframe = '<div id="editor-'+tabCounter+'" class="editorStyle"></div>';
+
+		
+		tabs.find(".ui-tabs-nav").append(li);
+		tabs.append("<div id='" + id + "' class='tabs'>" + websiteframe + "</div>");
+		tab_nav();
+		tabs.tabs("refresh");
+		
+		var editor = ace.edit("editor-"+tabCounter);
+		editor.setTheme("ace/theme/monokai");
+		editor.getSession().setMode("ace/mode/javascript");
+		tabCounter++;
+	}
+
+	$("#add_tab").click(function () {
+		addTab();
+	});
+
+	// close icon: removing the tab on click
+	tabs.delegate( "span.ui-icon-close", "click", function() {
+		var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
+		$( "#" + panelId ).remove();
+		tabs.tabs( "refresh" );
+	});
+
+	tabs.bind( "keyup", function( event ) {
+		if ( event.altKey && event.keyCode === $.ui.keyCode.BACKSPACE ) {
+			var panelId = tabs.find( ".ui-tabs-active" ).remove().attr( "aria-controls" );
+			$( "#" + panelId ).remove();
+			tabs.tabs( "refresh" );
+		}
+	});
+	
+	
+	tab_nav();
+	$('#tabs .prev').on( 'click', function(e){
+		e.preventDefault();
+		var distance = 0 - $('#tabs ul li:last').outerWidth();
+		$('#tabs ul li:last').prependTo('#tabs ul').css('margin-left', distance).animate({ 'margin-left' : 0 }, 200, function(){
+			$('#tabs ul li:first').css('margin-left', '');
+		});
+	});
+	$('#tabs .next').on( 'click', function(e){
+		e.preventDefault();
+		var distance = 0 - $('#tabs ul li:first').outerWidth();
+		$('#tabs ul li:first').animate({ 'margin-left' : distance }, 200, function(){
+			$(this).appendTo('#tabs ul').css('margin-left', '' );
+		});
+	});
+	/* End slider */
+});
+
+function tab_nav(){
+	var tab_nav_width = 100;
+	var tab_nav_inside = $('.ins').outerWidth();
+	$('.ins ul li').each(function(){
+		var tab_nav_li_width = $(this).outerWidth();
+		tab_nav_width = tab_nav_width + tab_nav_li_width;
+	});
+	$('.ins ul').width( tab_nav_width );
+
+	if( tab_nav_inside > tab_nav_width ){
+		$('#tabs .button-mover').hide();
+	} else {
+		$('#tabs .button-mover').show();
+		// Rearrange the order based on .active -> .active always at the leftest
+		$('.ins ul li.active').nextAll('li').prependTo('.ins ul');
+		$('.ins ul li.active').prependTo('.ins ul');		
+	}
+}
+
+function chat() {
+	// console.log(io.connect("127.0.0.1:7777"));
+	var socket = io.connect("127.0.0.1:7777");
+	socket.on("chat_on_client", function(data) {
+		var tmp = $("#chattemplate").clone().css("display", "").removeAttr("id").addClass("templatechat");
+		$(".sender", tmp).text(data.sender);
+		$(".date", tmp).text(data.date);
+		$(".contentChat", tmp).text(data.message);
+		$("#listChat").append(tmp);
+	});
+
+	$("#chats").keypress(function(e) {
+		if (e.which == 13) {
+			e.preventDefault();
+			var message = $(this).val();
+			var date = new Date();
+			var resDate = date.getDate().toString() + " " + month[date.getMonth()].toString() + " " + date.getFullYear().toString() + ", " + date.getHours().toString() + ":" + date.getMinutes().toString();
+			socket.emit("chat_on_server", {
+				message : message,
+				sender : currentUser,
+				date : resDate
+			});
+			$(this).val('');
+		}
+	});
+}
+
+function compileCode(http, code) {
+	console.log(code);
+	var data = {name : "adit ganteng"};
+	// http.post("http://localhost:81/akurniawan.github.io/CodeEditor/services/index.php/compiling",
+	// 		JSON.stringify(data));
+	http({
+		// headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+		method: "POST",
+		url: "http://localhost:81/akurniawan.github.io/CodeEditor/services/index.php/compiling", 
+		data : {
+			code : code
+		}
+	}).success(function(data) {
+		window.open("http://localhost:81/akurniawan.github.io/CodeEditor/terminal", "Result", 'height=417,width=645');
+	});
+}
+

@@ -1,0 +1,313 @@
+#content {
+	margin-top: 125px; /* adjust this if the height of the menu bar changes */
+}
+
+.nav {
+	margin-bottom:5px;
+}
+
+footer {
+	padding: 30px 0;	
+	margin-right:15px;
+}
+
+.navheader{
+	margin-top:0px;
+}
+
+.navbar-nav{
+	margin-left:10px;
+	color:white;
+	margin-top:3px;
+}
+
+.navbar-header{
+	height:60px;
+	margin-left:-10px;
+}
+
+#ilogin{
+	background-color:#0de8db;
+	color:#666666;
+	height:35px;
+	width:100px;
+	padding-top:8px;
+	padding-left:15px;
+	margin-left:-0px;
+	margin-top:10px;
+}
+
+#ilogin:hover{
+	border-bottom:none;
+	color:white;
+	
+}
+
+.middle{
+	background-color:#f8ffff;
+	color:#5c5c5c;
+	margin-top:-10px;
+	margin-left:-15px;
+	margin-right:-15px;
+	padding-top:30px;
+}
+
+#middle{
+	background-color:#666b6b;
+	width:50%;
+	text-align:left;
+	padding-left:30px;
+	padding-right:30px;
+	padding-top:20px;
+	padding-bottom:20px;
+	color:#12d9cd;
+}
+
+#middle td{
+	padding-bottom:10px;
+}
+
+#middle input{
+	width:100%;
+	color:black;
+	-webkit-transition: all 0.30s ease-in-out;
+	-moz-transition: all 0.30s ease-in-out;
+	-ms-transition: all 0.30s ease-in-out;
+	-o-transition: all 0.30s ease-in-out;
+	padding: 5px 0px 5px 5px;
+	margin: 3px 1px 3px 1px;
+	border: 1px solid #CCCCCC;
+}
+
+#middle textarea{
+	width:100%;
+	color:black;
+	resize:vertical;
+	padding: 5px 0px 5px 5px;
+	margin: 3px 1px 3px 1px;
+}
+
+input[type=text]:focus, input[type=password]:focus,  textarea:focus {
+	box-shadow: 0 0 10px rgba(81, 203, 238, 1);
+	padding: 5px 0px 5px 5px;
+	margin: 3px 1px 3px 1px;
+	border: 1px solid rgba(81, 203, 238, 1);
+}
+
+#middle input[type=submit]{
+	font-size:18px;
+	background-color:#12d9cd;
+	color:#5f5e5e;
+	-webkit-border-radius: 3px;
+	padding: 5px 15px 5px 15px;
+	border:none;
+ 	border-radius: 3px;
+}
+
+#middle input[type=submit]:hover{
+	font-size:18px;
+	background-color:#12d9cd;
+	color:white;
+	-webkit-border-radius: 3px;
+	padding: 5px 15px 5px 15px;
+	border:none;
+ 	border-radius: 3px;
+}
+
+#middle #defaultReal{
+	width:69.5%;
+	margin-left:15px;
+}
+
+@media screen and (max-width: 1300px) {
+	#middle #defaultReal{
+		width:58%;
+		margin-left:15px;
+	}
+
+}
+
+@media screen and (max-width: 800px) {
+	#middle{
+		width:75%;
+	}
+	#middle #defaultReal{
+		width:62.5%;
+		margin-left:15px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	#middle #defaultReal{
+		width:100%;
+		margin-left:0px;
+	}
+
+}
+
+@media screen and (max-width: 500px) {
+	#middle{
+		width:100%;
+	}
+
+}
+
+@media screen and (max-width: 300px) {
+	#middle input{
+		width:87%;
+	}
+	#middle textarea{
+		width:87%;
+	}
+	#middle #defaultReal{
+		width:87%;
+		margin-left:0px;
+	}
+}
+
+#rowtop{
+	background:#cccccc;
+	padding-bottom:50px;
+	padding-top:50px;
+	margin-top:-65px;
+	padding-left:30px;
+	padding-right:30px;
+}
+
+#rowmiddle{
+	background:#eaeaec;
+	padding-bottom:30px;
+	padding-left:50px;
+	padding-right:50px;
+}
+
+#bfooter{
+	background:#595e5e;
+	color:white;
+	padding-top:20px;
+	padding-bottom:10px;
+	padding-left:30px;
+	padding-right:20px;
+	margin-top:-30px;
+}
+
+#footer{
+	background:#595e5e;
+	color:white;
+	padding-top:20px;
+	margin-bottom:-50px;
+}
+
+
+.col-md-4 p a{
+	color:white;
+}
+
+.col-md-3 p a{
+	color:white;
+}
+
+.follow{
+	margin-left:15px;
+}
+
+
+.sign{
+	-webkit-box-shadow: 6px 6px 10px 1px #474747;
+	box-shadow: 6px 6px 10px 1px #474747;
+}
+
+.content{
+	margin-top:-30px;
+}
+
+#slogan{
+	background:#bcc3c3;
+	margin-bottom:10px;
+	height:auto;
+}
+
+.navbar-inverse{
+	padding-left:20px;
+	padding-right:20px;
+	z-index:1;
+}
+
+.navbar-right{
+	margin-top:17px;
+}
+
+
+.navbar-right:hover{
+	border-bottom:none;
+}
+
+.midfeatures{
+	background-color:#f7f7f7;
+	padding-top: 20px;
+	padding-left:60px;
+	padding-right:60px;
+	padding-bottom:30px;
+}
+
+.midfeatures h3{
+	font-weight:bold;
+	color:#5c5c5c;
+}
+
+#userName {
+	font-family:"Times New Roman", Times, serif;
+	font-size: 20px;
+	margin-top: "2%";
+}
+
+
+#loginAn{
+	color: white;
+	background: #222222;
+	padding: 8.5px;
+	padding-bottom: 9px;
+	padding-left: 13px;
+	font-size: 10px;
+	margin-left: -2px;
+	cursor:pointer;
+}
+
+#loginAn:hover{
+	text-decoration:none;
+}
+
+#loginOr{
+	margin-left: -15px;
+	font-size: 9px;
+	background-color: #5f5e5e;
+	padding: 5px;
+	width: 23px;
+	border-radius: 20px;
+	position: absolute;
+	padding-left: 9px;
+	margin-top: 4px;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba(0, 0, 0, .8) url('../workspace/images/713.gif') 50% 50% no-repeat;
+}
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+
+body.loading {
+	overflow: hidden;
+}
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+
+body.loading .modal {
+	display: block;
+}

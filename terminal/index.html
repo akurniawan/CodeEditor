@@ -1,0 +1,52 @@
+<!doctype html>
+<script src="http://192.168.0.101:8080/socket.io/socket.io.js"></script>
+<script src="../node_services/node_modules/term.js/src/term.js"></script>
+<script>
+	;(function() {
+		window.onload = function() {
+			var socket = io.connect("192.168.0.101:8080");
+			var id = 0;
+			socket.on('connect', function() {
+				var t = window.location.hash.split("#")[1];
+        var folderid = window.location.hash.split("#")[2];
+				var param = t.split(".");
+        console.log(folderid);
+				socket.emit("type", {
+					name : param[0],
+					ext : param[1],
+          folderid : folderid
+				});
+				socket.on("ready", function() {
+					var term = new Terminal({
+						cols: 100,
+						rows: 30,
+						useStyle: true,
+						screenKeys: true
+					});
+					socket.on("send_id", function(data) {
+						id = data;
+						// console.log("masuk send id");
+						term.on('title', function(title) {
+							document.title = title;
+						});
+						term.on('data', function(data) {
+							// console.log(term);
+							console.log(id);
+							socket.emit('data', {
+								id : id,
+								term : data
+							});
+						});
+						socket.on('data', function(data) {
+							// console.log(data);
+							term.write(data.term);
+						});
+					});
+					term.open(document.body);
+				});
+			});
+		};
+	}).call(this);
+</script>
+<body style="margin:0px">
+</body>

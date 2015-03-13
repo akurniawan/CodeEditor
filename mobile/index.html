@@ -1,0 +1,47 @@
+<html>
+	<head>
+
+		<script src="cordova.js"></script>
+		<script src="js/jquery.js"></script>
+		<script type="text/javascript" charset="utf-8">
+		 
+		// Wait for Cordova to load
+		//
+		document.addEventListener("deviceready", onDeviceReady, false);
+
+		// Cordova is ready
+		//
+		function onDeviceReady() {
+			var ref = window.open('http://10.21.84.171:81/akurniawan.github.io/CodeEditor/web?mobile', '_blank');
+		}
+
+		</script>
+		
+		<link href='css/bootstrap.css' rel='stylesheet' type='text/css'>
+		<style>
+			html, body, .container{
+				height: 100%;
+				 background-color: #BCC3C3;
+			}
+			.container{
+				display: table;
+				vertical-align: middle;
+			}
+			.vertical-center-row{
+				display: table-cell;
+				vertical-align: middle;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row vertical-center-row">
+				<div class="col-lg-12">
+					<img src="images/icon.png" class="img-responsive" /><br/><img src="images/slogan.png" class="img-responsive1"/>
+				</div>
+			</div>
+		</div>
+	
+	</body>
+</html>

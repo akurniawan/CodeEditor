@@ -1,0 +1,112 @@
+<script type="text/javascript" src="view/workspace.js"></script>
+<div ng-controller="workspace">
+    <div class="container" id="content">
+        <div class="row">
+            <div class="sb-slidebar sb-left sb-style-push">
+                <!-- Your left Slidebar content. -->
+                <div id="sb-left-header">
+					<div style="float: left;width: 100%;">
+						<img id="profilePicture"/>
+						<span id="profileName"></span>
+						<span style="margin-left:20px;" ><img src="images/logout-button.png" style="margin-top: 10px;cursor:pointer;" id="logout"/></span>
+					</div>
+					<div>
+						<center><span class="detailRight">Project</span></center>
+						<div class="lineRight"><span class="lineWidth"></span></div>
+					</div>
+                </div>
+				<div id="sb-left-middle">
+					<div id="projectTree"></div>
+				</div>
+            </div>
+            <div class="sb-slidebar sb-right sb-style-overlay">
+				<div id="sb-right-content">
+					<input type="text" name="search" class="search-input" placeholder="Search..." id="searchFriend"/> <br/>
+					<div>
+						<center><span class="detailRight">Collaborators</span></center>
+						<div class="lineRight"><span class="lineWidth"></span></div>
+					</div>
+					<div id="list-tag">
+            <div id="iTemplateCollaboratorsList" style="display:none" class="looptemplate">
+              <div class="friendList">
+                <img class="friend" style="width:32px;height:32px;">
+                <div class="detailFriend">
+                  <span class="nameFriend"></span></br>
+                  <span class="status">
+                    <span></span>
+                  </span>
+                </div>
+				
+                  <span class="colorCollaborators"></span>
+                <button type="button" class="close" style="margin-top:-40px">
+                  <span aria-hidden="true" style="color:white;font-size:27;">&times;</span>
+                  <span class="sr-only">Close</span>
+                </button>
+              </div>
+            </div>
+					</div>
+					<div id="headerChat">
+						<center><span class="detailRight1">Chats</span></center>
+						<div class="lineRight1"><span class="lineWidth"></span></div>
+					</div>
+					<div id="listChat">
+						<div id="chattemplate" class="chat" style="display:none">
+							<div class="sender"></div>
+							<span class="date"></span>
+							<p class="contentChat"></p>
+              <button type="button" class="close" style="margin-top:-50px; margin-right:7px">
+                <span aria-hidden="true" style="color:white;font-size:27;">&times;</span>
+                <span class="sr-only">Close</span>
+              </button>
+						</div>
+					</div>
+					<textarea id="chats" name="chats" placeholder="Enter your message here"></textarea>
+				</div>
+            </div>
+            <div id="sb-site">
+				<div id="menu-height">
+					<!--<ul class="list-inline" id="menu-list">
+						<li class="sb-toggle-left">
+							<img src="images/icon-burger.png" class="burger"/>
+						</li>
+					</ul>
+					<div id="body-nav" class="component">
+						<div class="inside">-->
+							<ul class="list-inline" id="menu-list">
+								<li class="sb-toggle-left">
+									<img src="images/icon-burger.png" class="burger"/>
+								</li>
+								<li>
+									<a id="compileCode"><span class="glyphicon glyphicon-play"></span>Run</a>
+								</li>
+								<li class="sb-toggle-right">
+									<div class="notification">0</div>
+									<img src="images/chat.png" class="burger"/>
+								</li>
+							</ul>
+						<!--</div>
+						<a href="#" class="nav prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+						<a href="#" class="nav next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+					</div>-->
+				</div>
+        <div id="work-height">
+					<div id="tabs">
+						<div class="ins">
+							<ul>
+								<!-- <li><a href="#tabs-1">1</a> <span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li> -->
+							</ul>
+						</div>
+						<div id="moverDiv">
+							<div class="button-mover"><a class="nav next button-move"><span class="glyphicon glyphicon-chevron-right"></span></a></div>
+							<div class="button-mover" style="right:18px;"><a class="nav prev button-move"><span class="glyphicon glyphicon-chevron-left"></span></a></div>
+						</div>
+					</div>
+        </div>
+                <!-- <div id="term-height">
+                    <iframe src="http://localhost:8080" style="width:100%; height:100%" frameborder="02"></iframe>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal"><!-- Place at bottom of page --></div>
